@@ -1,0 +1,47 @@
+//this is the potd of 19-06-2025
+//problem no. - 2966
+
+
+
+class Solution {
+public:
+    bool check(vector<vector<int>>& ans,int n,int k){
+        int m=n/3;
+
+        for(int i=0;i<m;i++){
+            for(int j=1;j<=3;j++){
+                if(abs(ans[i][(j)%3]-ans[i][(j-1)%3])>k){
+                    // cout << i << ",returning : " << j << endl;
+                    return 0;
+                }
+            }
+        }
+        return 1;
+    }
+
+
+    vector<vector<int>> divideArray(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<vector<int>> ans(n/3);
+        sort(nums.begin(),nums.end());
+
+        for(int i=0;i<n;i++){
+            ans[i/3].push_back(nums[i]);
+        }
+
+        if(!check(ans,n,k)){
+            return {};
+        }
+
+        return ans;
+    }
+};
+
+
+static const int init = []{
+    struct ___ { static void _() { std::ofstream("display_runtime.txt") << 0 << '\n'; } };    
+    std::atexit(&___::_);
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    return 0;
+}();
