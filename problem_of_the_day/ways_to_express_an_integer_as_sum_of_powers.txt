@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int mod=1000000007;
+    vector<vector<int>> dp;
+
+    int solve(int x,int m,int n){
+        // cout << "x=" << x << " m=" << m << " pow=" << pow(m, x) << endl;
+
+        if(n==0){return 1;}
+        if(pow(m,x)>n){return 0;}
+
+        if (dp[m][n] != -1) return dp[m][n];
+
+        int a=0,b=0;
+
+        a=solve(x,m+1,n-pow(m,x)) % mod;
+        b=solve(x,m+1,n) % mod;
+
+        return dp[m][n]=(a+b) % mod;
+    }
+
+
+    int numberOfWays(int n, int x) {
+        dp.assign(n + 2, vector<int>(n + 1, -1));
+        return solve(x,1,n);
+    }
+};
