@@ -1,0 +1,43 @@
+/*
+
+problem number : 165
+time complexity : O(n)
+space complexity : O(1)
+
+*/
+
+
+class Solution {
+public:
+    int compareVersion(string v1, string v2) {
+        int n1 = v1.size(), n2 = v2.size();
+        int i1 = 0, i2 = 0;
+
+        while (i1 < n1 || i2 < n2) {
+            long num1 = 0;
+            long num2 = 0;
+
+            // Parse next number in v1
+            while (i1 < n1 && v1[i1] != '.') {
+                num1 = num1 * 10 + (v1[i1] - '0');
+                i1++;
+            }
+
+            // Parse next number in v2
+            while (i2 < n2 && v2[i2] != '.') {
+                num2 = num2 * 10 + (v2[i2] - '0');
+                i2++;
+            }
+
+            // Compare the numbers
+            if (num1 < num2) return -1;
+            if (num1 > num2) return 1;
+
+            // Skip the dot if any
+            if (i1 < n1 && v1[i1] == '.') i1++;
+            if (i2 < n2 && v2[i2] == '.') i2++;
+        }
+
+        return 0; // All segments are equal
+    }
+};
