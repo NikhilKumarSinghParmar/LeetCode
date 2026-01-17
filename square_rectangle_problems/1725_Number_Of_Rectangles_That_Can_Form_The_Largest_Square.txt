@@ -1,0 +1,29 @@
+class Solution {
+private:
+    int n;
+    int cnt=0;
+    int maxval=-1;
+
+
+public:
+    void reload(int val){
+        cnt = 1;
+        maxval = val;
+    }
+
+
+    int countGoodRectangles(vector<vector<int>>& nums) {
+        n = nums.size();
+
+        for(int i=0;i<n;i++){
+            int temp = min(nums[i][0],nums[i][1]);
+            if(temp == maxval){
+                ++cnt;
+            }else if(temp > maxval){
+                reload(temp);
+            }
+        }
+
+        return cnt;
+    }
+};
