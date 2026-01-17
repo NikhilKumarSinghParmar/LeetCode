@@ -1,0 +1,15 @@
+#define ll long long int
+
+
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        ll c = -2LL * n;
+        ll cnst = sqrt(1 - 4*c);
+
+        ll x1 = (-1 - cnst) / 2;
+        ll x2 = (-1 + cnst) / 2;
+
+        return (int)max(x1,x2);
+    }
+};
