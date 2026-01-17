@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> constructRectangle(int area) {
+        int a = (int)sqrt(area);
+
+        for(int i=a;i>0;i--){
+            if(!(area % i)){
+                return {max(i,area/i),min(i,area/i)};
+            }
+        }
+
+        return {area,1};
+    }
+};
