@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumCost(vector<int>& cost) {
+        int ans = 0;
+        int n = cost.size();
+        int m = (n/3)*3;
+        int i = 0;
+        sort(cost.begin(),cost.end());
+        reverse(cost.begin(),cost.end());
+
+        for(i=0;i<m;i++){
+            if(i%3 == 2){continue;}
+            ans += cost[i];
+        }
+
+        while(i<n){
+            ans += cost[i++];
+        }
+
+        return ans;
+    }
+};
