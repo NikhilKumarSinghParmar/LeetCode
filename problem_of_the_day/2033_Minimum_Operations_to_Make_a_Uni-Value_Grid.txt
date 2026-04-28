@@ -90,3 +90,48 @@ public:
         return -1;
     }
 };
+
+
+
+class Solution {
+public:
+    int minOperations(vector<vector<int>>& grid, int x) {
+        int m = grid.size();
+        int n = grid[0].size();
+        int val0 = grid[0][0];
+        int minval(val0),maxval(val0);
+        vector<int> freq(10001,0);
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if((grid[i][j] - val0)%x){
+                    return -1;
+                }
+
+                freq[grid[i][j]]++;
+                minval = min(minval,grid[i][j]);
+                maxval = max(maxval,grid[i][j]);
+            }
+        }
+
+        int cost(0);
+        for(int i=minval+x;i<=maxval;i+=x){
+            cost += (((i - minval)/x) * freq[i]);
+        }
+
+        for(int i=minval+x;i<=maxval;i+=x){
+            freq[i] += freq[i-x];
+        }
+
+        int ans(cost);
+        for(int i=minval+x;i<=maxval;i+=x){
+            int left = freq[i-x];
+            int right = freq[maxval] - freq[i-x];
+
+            cost = cost + left - right;
+            ans = min(ans,cost);
+        }
+
+        return ans;
+    }
+};
