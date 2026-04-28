@@ -34,3 +34,59 @@ public:
         return result;
     }
 };
+
+
+// another solution
+class Solution {
+public:
+    int find_gap(vector<int>& vec,int n,int k,int x){
+        int gap = 0;
+
+        for(int i=0;i<n;i++){
+            gap += abs(vec[k] - vec[i]);
+        }
+        gap /= x;
+
+        return gap;
+    }
+
+    bool is_valid(vector<int>& vec,int n,int x){
+        for(int i=1;i<n;i++){
+            if((vec[i]-vec[i-1])%x){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    int minOperations(vector<vector<int>>& grid, int x) {
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<int> vec;
+
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                vec.push_back(grid[i][j]);
+            }
+        }      
+
+        sort(vec.begin(),vec.end());
+        n = m*n;
+        if(!is_valid(vec,n,x)){
+            return -1;
+        }
+        if(n%2 || n<=2){
+            int left = find_gap(vec,n,n/2,x);
+            return left;
+        }
+        else{
+            int left = find_gap(vec,n,n/2,x);
+            int right = find_gap(vec,n,n/2+1,x);
+            return min(left,right);
+        }
+
+        return -1;
+    }
+};
